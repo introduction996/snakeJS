@@ -11,6 +11,9 @@ const context = board.getContext('2d');
 let currentInterval;
 let lastMove;
 
+let randomX = Math.floor(Math.random() * 29);
+let randomY = Math.floor(Math.random() * 29);
+
 function drawCanvas() {
     board.width = columns * blockSize;
     board.height = rows * blockSize;
@@ -83,6 +86,7 @@ function moveSnake() {
 ///////////////////////////////////////////////
 
 function goRight() {
+
     currentX += blockSize;
     if (currentX >= board.width) {
         currentX = 0
@@ -90,9 +94,12 @@ function goRight() {
     drawCanvas();
     context.fillStyle = 'green';
     context.fillRect(currentX, currentY, blockSize, blockSize);
+
+    drawFood()
 }
 
 function goLeft() {
+    
     currentX -= blockSize;
     if (currentX < 0) {
         currentX = board.width - blockSize
@@ -100,9 +107,12 @@ function goLeft() {
     drawCanvas();
     context.fillStyle = 'green';
     context.fillRect(currentX, currentY, blockSize, blockSize);
+
+    drawFood()
 }
 
 function goUp() {
+
     currentY -= blockSize;
     if (currentY < 0) {
         currentY = board.height - blockSize
@@ -110,9 +120,12 @@ function goUp() {
     drawCanvas();
     context.fillStyle = 'green';
     context.fillRect(currentX, currentY, blockSize, blockSize);
+
+    drawFood()
 }
 
 function goDown() {
+
     currentY += blockSize;
     if (currentY >= board.height) {
         currentY = 0
@@ -120,8 +133,25 @@ function goDown() {
     drawCanvas();
     context.fillStyle = 'green';
     context.fillRect(currentX, currentY, blockSize, blockSize);
+
+    drawFood()
+}
+
+let size = [1, 2, 3, 4, 5, 
+    6, 7, 8, 9, 10, 11, 12, 
+    13, 14, 15,16,17, 18, 19, 
+    20, 21, 22, 23, 24, 25, 26, 
+    27, 28 , 29, 30];
+
+
+function drawFood() {
+    context.fillStyle = 'red';
+    context.fillRect(size[randomX] * blockSize, size[randomY] * blockSize, blockSize, blockSize)
 }
 
 
+
+// on reload
 drawCanvas()
 moveSnake()
+drawFood()
